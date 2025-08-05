@@ -88,6 +88,13 @@ public class GatewayConfig {
                                 .filter(jwtAuthenticationFilter.apply(new JwtAuthenticationFilter.Config())))
                         .uri("http://dataquad-candidates-dev:8086"))
 
+                // ✅ ✅ Protected hotlist routes
+                .route("hotlist_service", r -> r
+                        .path("/hotlist/**")
+                        .filters(f -> f.filter(new CookieToHeaderFilter())
+                                .filter(jwtAuthenticationFilter.apply(new JwtAuthenticationFilter.Config())))
+                        .uri("http://adroit-hotlist-dev:8091"))
+
                 // Optional health check route
                 .route("health_check", r -> r
                         .path("/health")
